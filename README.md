@@ -16,21 +16,25 @@ Seamless landing page with Login/SignUp Button.
 - Student Can Join Exam by clicking on **`Join Exam`** with the Exam Code provided by their teacher.’
 - Students can see their Previous Exams in the Dashboard.
 - After the Exam, Student can check their Results.
-<img src="https://user-images.githubusercontent.com/94772345/170834727-8f62e2a3-7971-404b-aa32-9f465690e4f1.jpg" height="300">
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/94772345/170859101-da1fdf76-954f-4505-85ba-5bac0f3f2f48.gif)
+
 
 ### **→** Examination Page
 - There will be Question Panel.
 - **`Next`** Button to goto the next Question.
 - **`Submit Test`** Button to Submit the test.
-<img src="https://user-images.githubusercontent.com/94772345/170836284-ac5b07e4-b156-4a0c-902f-9cba0c09012b.jpg" height="300">
+
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/94772345/170859973-835c4fa4-c6fc-4116-a657-53f04b973c5b.gif)
 
 
 ### **→** Teacher DashBoard
-#### Teacher can :-
+   #### Teacher can :-
 - Create the exam by **`Create Exam`** and get the exam code which can be shared to the students.
 - Check students performance or students perform any Prohibited and UFM during the exam.
 - Check the Ongoing, Past Exam Student Performance and can also **schedule** exams.
-<img src="https://user-images.githubusercontent.com/94772345/170836283-5ad11316-f676-4610-ba2b-cf65fe16393c.jpg" height="300">
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/94772345/170858997-353ebf03-97ab-48bd-bb3d-6e90b112ced5.gif)
 
 
 ## ⚙️ Tech Stack: 
