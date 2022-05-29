@@ -2,6 +2,7 @@ const Exam = require('../models/examModel');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 
+// Create exam with given information
 exports.createExam = catchAsync(async (req, res) => {
   const exam = await Exam.create({
     examCode: Math.random().toString(36).slice(-5).toUpperCase(),
@@ -21,14 +22,22 @@ exports.createExam = catchAsync(async (req, res) => {
 });
 
 exports.getExam = catchAsync(async (req, res, next) => {
-  // Check if exam ended or not started yet
+  // Check if exam exists
+  const exam = await Exam.findOne({examCode : req.params.examCode});
+  if(!exam) return res.status(404).json({ status: 'fail', message: 'Exam not found'});
 
-  const data = await Exam.findOne({examCode : req.params.examCode});
-  if(!data) return next(new AppError('No exam found', 404));
+  // Check if exam already ended or not started yet
+  const examStartTime = new Date(exam.startTime).getTime();
+  const examEndTime = new Date(exam.endTime).getTime();
+  const currTime = Date.now();
+
+  if(examStartTime > currTime || currTime >= examEndTime) return res.status(404).json({ status: 'fail',
+    message: examStartTime > currTime ? 'Exam not started yet' : 'Exam is already finished',
+  });
 
   res.status(200).json({
     status: 'success',
-    data: data
+    data: exam
   })
 });
 

@@ -4,6 +4,7 @@ const futureTest = document.querySelector('.futureTest');
 const statusElem = document.querySelector('tbody');
 const logoutBtn = document.querySelector('.logout');
 const createBtn = document.querySelector('.createBtn');
+const students = document.querySelector('table');
 
 (async function init(){
   const res = await axios.get('/api/v1/exam');
@@ -13,13 +14,13 @@ const createBtn = document.querySelector('.createBtn');
     let currTime = new Date().getTime();
     let examStartTime = new Date(exam.startTime).getTime();
     let examEndTime = new Date(exam.endTime).getTime();
-    const htmlElem = `<div class="tests" ${i==0 ? `style="background-color: rgb(16 18 27 / 33%)"` : ''}>${exam.examCode}</div>`;
+    const htmlElem = `<div class="tests">${exam.examCode}</div>`;
 
     if(currTime > examEndTime) pastTest.innerHTML += htmlElem;
     else if(currTime >= examStartTime && currTime < examEndTime) ongoingTest.innerHTML += htmlElem;
     else futureTest.innerHTML += htmlElem;
   });
-
+  document.querySelector('.tests').classList.add('test-selected');
   document.querySelector('.tests')?.click();
 })();
 
@@ -34,6 +35,9 @@ document.querySelector('.left-side').addEventListener('click', async (e) => {
   let target = e.target.closest('.tests');
   if(!target) return;
 
+  document.querySelector('.test-selected').classList.remove('test-selected');
+  target.classList.add('test-selected');
+
   // Get Status of exam
   let examCode = target.innerText;
   try{
@@ -43,7 +47,7 @@ document.querySelector('.left-side').addEventListener('click', async (e) => {
     // Fill the table with recieved data
     statusElem.innerHTML = '';
     statusArr.forEach((status, i) => {
-      statusElem.innerHTML += `<tr>
+      statusElem.innerHTML += `<tr data-email=${status.studentEmail} data-examCode=${examCode}>
           <td>${i+1}</td>
           <td>${status.studentName}</td>
           <td>${status.studentEmail}</td>
@@ -62,6 +66,22 @@ document.querySelector('.left-side').addEventListener('click', async (e) => {
     popupMsg('No result yet', 'success');
   }
 });
+
+students.addEventListener('click', async (e) => {
+  let target = e.target.closest('tr');
+
+  const {email, examcode} = target.dataset;
+  const result = (await axios.get(`/api/v1/result/${examcode}?email=${email}`)).data?.data;
+  if(!result) return;
+
+  const {obtainedMarks, totalMarks} = result;
+  Swal.fire({
+    title: `${email}`,
+    html: `<h1>${obtainedMarks} / ${totalMarks}<h1>`,
+    icon: 'success',
+    heightAuto: false
+  });
+})
 
 createBtn.addEventListener('click', async (e) => {
 

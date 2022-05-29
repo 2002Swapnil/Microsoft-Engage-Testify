@@ -54,8 +54,9 @@ exports.createResult = catchAsync(async (req, res, next) => {
   })
 });
 
+// Get result of the given examCode by (current student) or (given student email by teacher)
 exports.getResult = catchAsync(async (req, res, next) => {
-  const data = await Result.findOne({id: req.params.examCode+req.user.email}).select('studentEmail totalMarks obtainedMarks -_id');
+  const data = await Result.findOne({id: req.params.examCode + (req.user.role=="teacher" ? req.query.email : req.user.email)}).select('studentEmail totalMarks obtainedMarks -_id');
   if(!data) return next(new AppError('Result not found', 404));
 
   res.status(200).json({

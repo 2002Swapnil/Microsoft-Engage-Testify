@@ -3,33 +3,52 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cookieParser = require("cookie-parser");
+const rateLimit = require('express-rate-limit');
 
-const globalErrorHandler = require('./utils/globalErrorHandler');
-
+// Setting up environment variables for development purpose
 // dotenv.config({path : './config.env'});
 
-const userRouter = require('./routes/userRouter');
-const examRouter = require('./routes/examRouter');
-const statusRouter = require('./routes/statusRouter');
-const resultRouter = require('./routes/resultRouter');
+// Local Modules
+const globalErrorHandler = require('./utils/globalErrorHandler');
+const apiRouter = require('./routes/apiRouter');
 const viewRouter = require('./routes/viewRouter');
 
-const app = express();
-app.use(express.json({ limit: '5kb' }));
-app.use(cookieParser());
+// Rate limiter
+const limiter = rateLimit({
+  max: 10, // 10 requests per 3 seconds
+  windowMs: 3000,
+  message: 'Too many requests',
+});
 
+const app = express();
+
+// *********************
+//  *** MIDDLEWARES ***
+// *********************
+
+app.use(cookieParser());
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, './views'));
-
 app.use(express.static(path.join(__dirname, './public')));
 
-app.use('/api/v1/user', userRouter);
-app.use('/api/v1/exam', examRouter);
-app.use('/api/v1/status', statusRouter);
-app.use('/api/v1/result', resultRouter);
-app.use('/', viewRouter);
-app.use(globalErrorHandler); // Global error handler middleware 
+// Rate limiting on /api route
+app.use('/api', limiter);
 
+// Get data in req.body with data limit
+app.use(express.json({ limit: '5kb' }));
+
+// ****************
+//  *** Routes ***
+// ****************
+app.use('/api', apiRouter);
+app.use('/', viewRouter);
+
+// Global error handler middleware 
+app.use(globalErrorHandler); 
+
+// ****************
+//  *** Server and Database ***
+// ****************
 mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
   console.log('Database connected');
 });

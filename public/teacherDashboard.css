@@ -7,11 +7,15 @@
   color: white;
   margin: 10px;
 }
-.tests:hover{
-  background-color: rgb(16 18 27 / 33%);;
+.tests:hover, tbody tr:hover{
+  background-color: rgb(16 18 27 / 33%);
   cursor: pointer;
   border-radius: 40px;
   transform: scale(1.01);
+}
+
+.test-selected{
+  background-color: rgb(16 18 27 / 33%);
 }
 
 .create .button {
