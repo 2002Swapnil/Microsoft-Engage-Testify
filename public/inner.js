@@ -32,7 +32,7 @@ let timerInterval;
 
   document.addEventListener("visibilitychange", handleVisibilityChange, false);
   document.addEventListener('contextmenu', (e) => e.preventDefault());
-  // document.addEventListener('keydown',handleKeyPress);
+  document.addEventListener('keydown',handleKeyPress);
 
   ans = new Array(data.length+1);
 })();
@@ -53,7 +53,7 @@ function formatTime(ms){
   if (timer <= 60000 && timer > 59000) {
     Swal.fire({
       title: 'Only 1 Minute Left',
-      html: "Please Submit or attendance wont be marked",
+      html: "Hurry Up !!!",
       icon: 'error',
       heightAuto: false
     });
