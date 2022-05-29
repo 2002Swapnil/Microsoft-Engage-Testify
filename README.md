@@ -25,8 +25,8 @@ Seamless landing page with Login/SignUp Button.
 - **`Next`** Button to goto the next Question.
 - **`Submit Test`** Button to Submit the test.
 
-![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/94772345/170859973-835c4fa4-c6fc-4116-a657-53f04b973c5b.gif)
-
+<img src="https://user-images.githubusercontent.com/94772345/170860144-112eddd0-27a7-45dd-84c8-5d6b386c578b.jpg" height="300">
+<br>
 
 ### **→** Teacher DashBoard
    #### Teacher can :-
@@ -71,6 +71,8 @@ Seamless landing page with Login/SignUp Button.
 - Tries to cheat with someone in the room ❔
 
 - Use Book Or Any Prohibited Object ❔
+
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/94772345/170859973-835c4fa4-c6fc-4116-a657-53f04b973c5b.gif)
 
 
 ## ⏱️ Timeline
